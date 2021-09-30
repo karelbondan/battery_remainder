@@ -6,8 +6,9 @@ The "gabut" project because I'm out of resin in genshin and because I have no li
 ### What is Battery Remainder?
 
 As its name stated, this is a reminder for you whenever your device's battery has reached certain percentages.
-Because I'm lazy I just used my previous project's name "Wolf" to act as this project's parent. So yeah,
-Wolf has a child now... yay i guess... </br>
+Because I'm lazy I just used my previous project's name "Wolf" to act as this project's parent. That's why you may find 
+a lot of theme similarity between this app and Wolf. So... I guess
+Wolf has a child now... Yay, I guess... </br>
 Anyhow, you can set when you will get notified in the main GUI of this application. 
 This app was made in Windows so idk if it can run on linux or other operating system. Feel free to try tho.
 
@@ -26,6 +27,6 @@ You can also add ```autorun.py``` to your startup program to always automaticall
 
 ### Copyright Notice
 I do not own the notification sounds. You can find them online at: 
-- [battery_full.mp3][https://www.zedge.net/ringtone/cb1be3a0-a392-3d31-8c1e-a74100c90278]
-- [battery_low.mp3][https://www.zedge.net/ringtone/588b8c17-7393-4521-a077-6f132e9f7c5b]
-- [battery_critical.mp3][https://www.zedge.net/ringtone/407b7055-5a67-4221-8271-8d35329bbcfc]
+- [battery_full.mp3](https://www.zedge.net/ringtone/cb1be3a0-a392-3d31-8c1e-a74100c90278)
+- [battery_low.mp3](https://www.zedge.net/ringtone/588b8c17-7393-4521-a077-6f132e9f7c5b)
+- [battery_critical.mp3](https://www.zedge.net/ringtone/407b7055-5a67-4221-8271-8d35329bbcfc)
