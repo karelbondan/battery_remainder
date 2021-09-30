@@ -16,6 +16,7 @@ This app was made in Windows so idk if it can run on linux or other operating sy
 
 If someone somehow finds this and wants to clone this repo, Battery Remainder might only works on Windows and you need to install some depedencies if you haven't:
 - [playsound](https://pypi.org/project/playsound/)
+- [psutil](https://pypi.org/project/psutil/)
 - [PyQt5](https://pypi.org/project/PyQt5/)
 - [PySide2](https://pypi.org/project/PySide2/)
 - [pygetwindow](https://pypi.org/project/PyGetWindow/)
