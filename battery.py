@@ -4,6 +4,7 @@ import time
 import subprocess
 import playsound
 import signal
+import os
 
 
 # function returning time in hh:mm:ss
@@ -13,87 +14,124 @@ def convertTime(seconds):
     return "%d:%02d:%02d" % (hours, minutes, seconds)
 
 
-# global variable to check if user has seen the dialog box and dismissed it
-prompted = False
+# battery class
+class Battery:
+    def __init__(self, full='100', almost_full='80', low='15', critical='5'):
+        self._full = full
+        self._almost_full = almost_full
+        self._low = low
+        self._critical = critical
+        self._config = {'full': self._full, 'almost_full': self._almost_full, 'low': self._low, 'critical': self._critical}
 
-# global variable to check the current and previous battery percentage to reset the prompt
-current = 0
+        try:
+            file = open('config.json', 'r', encoding='utf-8')
+            self._config = eval(file.read())
+            print(self._config)
+            self._full = self._config['full']
+            self._almost_full = self._config['almost_full']
+            self._low = self._config['low']
+            self._critical = self._config['critical']
+            file.close()
+        except FileNotFoundError:
+            file = open('config.json', 'w+', encoding='utf-8')
+            file.write(f'{self._config}')
+            file.close()
 
-def autoClose(dialog_address):
-    while True:
-        print(psutil.sensors_battery().power_plugged)
-        if psutil.sensors_battery().power_plugged:
-            dialog_address.send_signal(signal.CTRL_BREAK_EVENT)
-            break
-        if not psutil.pid_exists(dialog_address.pid):
-            break
-        time.sleep(1)
+    @property
+    def full(self):
+        return self._full
 
-def autoCloseFull(dialog_address):
-    while True:
-        print(psutil.sensors_battery().power_plugged)
-        if not psutil.sensors_battery().power_plugged:
-            dialog_address.send_signal(signal.CTRL_BREAK_EVENT)
-            break
-        if not psutil.pid_exists(dialog_address.pid):
-            break
-        time.sleep(1)
+    @property
+    def almostFull(self):
+        return self._almost_full
 
-# loop to check for battery
-while True:
-    # returns a tuple
-    battery = psutil.sensors_battery()
+    @property
+    def low(self):
+        return self._low
 
-    print("Battery percentage : ", battery.percent)
-    print("Power plugged in : ", battery.power_plugged)
+    @property
+    def critical(self):
+        return self._critical
 
-    # converting seconds to hh:mm:ss
-    print("Battery left : ", convertTime(battery.secsleft))
+    @property
+    def config(self):
+        return self._config
 
-    # reset the prompt
-    if battery.percent != current:
-        current = battery.percent
-        prompted = False
+    @full.setter
+    def full(self, full):
+        if full < 95 or full > 100:
+            raise ValueError(f"Value must be between 95 and 100")
+        elif full < int(self._almost_full)+1:
+            raise SystemError(f"Value must be greater than {int(self._almost_full)+1}")
+        else:
+            self._full = int(full)
+            self._config.update({'full': str(self._full)})
+            self.saveFile()
 
-    # if battery is 20 percent, not charging, and user hasn't been prompted yet then open battery low dialog box
-    if battery.percent == 20 and not battery.power_plugged and not prompted:
-        dialog = subprocess.Popen('python main.py', shell=True,
-                                  creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        prompted = True
-        time.sleep(1)
-        playsound.playsound("D:/Projects/Battery_Remainder/notification/battery_low.wav")
-        print("battery 20")
-        autoClose(dialog)
+    @almostFull.setter
+    def almostFull(self, almost_full: int):
+        if almost_full < 60 or almost_full > int(self._full)-1:
+            raise ValueError(f"Value must be between 60 and {int(self._full)-1}")
+        elif almost_full < int(self._low)+1:
+            raise SystemError(f"Value must be greater than {int(self._low)+1}")
+        else:
+            self._almost_full = int(almost_full)
+            self._config.update({'almost_full': str(self._almost_full)})
+            self.saveFile()
 
-    # if battery is 10 percent, not charging, and user hasn't been prompted yet then open battery critical dialog box
-    elif battery.percent == 10 and not battery.power_plugged and not prompted:
-        dialog = subprocess.Popen('python main.py', shell=True,
-                                  creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        prompted = True
-        time.sleep(1)
-        playsound.playsound("D:/Projects/Battery_Remainder/notification/battery_critical.wav")
-        print("battery 10")
-        autoClose(dialog)
+    @low.setter
+    def low(self, low: int):
+        if low > int(self._almost_full)-1 or low < 10:
+            raise ValueError(f"Value must be between 10 {int(self._almost_full)-1}")
+        elif low < int(self._critical)+1:
+            raise SystemError(f"Value must be greater than {int(self._critical)+1}")
+        else:
+            self._low = int(low)
+            self._config.update({'low': str(self._low)})
+            self.saveFile()
 
-    # if battery is 80 percent, charging, and user hasn't been prompted yet then open battery almost full dialog box
-    elif battery.percent == 80 and battery.power_plugged and not prompted:
-        dialog = subprocess.Popen('python main.py', shell=True,
-                                  creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        prompted = True
-        time.sleep(1)
-        playsound.playsound("D:/Projects/Battery_Remainder/notification/battery_full.wav")
-        print("battery 80")
-        autoCloseFull(dialog)
+    @critical.setter
+    def critical(self, critical: int):
+        if critical > int(self._low)-1 or critical < 1:
+            raise ValueError(f"Value must be between 1 and {int(self._low)-1}")
+        else:
+            self._critical = int(critical)
+            self._config.update({'critical': str(self._critical)})
+            self.saveFile()
 
-    # if battery is 100 percent, charging, and user hasn't been prompted yet then open battery full dialog box
-    elif battery.percent == 100 and battery.power_plugged and not prompted:
-        dialog = subprocess.Popen('python main.py', shell=True,
-                                  creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
-        prompted = True
-        time.sleep(1)
-        playsound.playsound("D:/Projects/Battery_Remainder/notification/battery_full.wav")
-        print("battery 100")
-        autoCloseFull(dialog)
+    @config.setter
+    def config(self, config: dict):
+        file = open('config.json', 'w+', encoding='utf-8')
+        file.write(f'{config}')
+        file.close()
 
-    # check every 15 seconds
-    time.sleep(15)
+    def saveFile(self):
+        file = open('config.json', 'w+', encoding='utf-8')
+        file.write(f'{self._config}')
+        file.close()
+
+    def readFile(self):
+        file = open('config.json', 'r', encoding='utf8')
+        read = eval(file.read())
+        file.close()
+        return read
+
+    def autoClose(self, dialog_address):
+        while True:
+            print(psutil.sensors_battery().power_plugged)
+            if psutil.sensors_battery().power_plugged:
+                dialog_address.send_signal(signal.CTRL_BREAK_EVENT)
+                break
+            if not psutil.pid_exists(dialog_address.pid):
+                break
+            time.sleep(1)
+
+    def autoCloseFull(self, dialog_address):
+        while True:
+            print(psutil.sensors_battery().power_plugged)
+            if not psutil.sensors_battery().power_plugged:
+                dialog_address.send_signal(signal.CTRL_BREAK_EVENT)
+                break
+            if not psutil.pid_exists(dialog_address.pid):
+                break
+            time.sleep(1)
