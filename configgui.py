@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'config_dialoggRSatX.ui'
+## Form generated from reading UI file 'config_dialogXaaPiX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(427, 371)
+        MainWindow.resize(490, 375)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -149,8 +149,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setContentsMargins(0, 30, 0, 0)
         self.frame_13 = QFrame(self.page_criticallow)
         self.frame_13.setObjectName(u"frame_13")
-        self.frame_13.setMinimumSize(QSize(331, 151))
-        self.frame_13.setMaximumSize(QSize(331, 151))
+        self.frame_13.setMinimumSize(QSize(431, 181))
+        self.frame_13.setMaximumSize(QSize(431, 200))
         self.frame_13.setStyleSheet(u"background-color: rgb(255, 255, 255, 0)")
         self.frame_13.setFrameShape(QFrame.StyledPanel)
         self.frame_13.setFrameShadow(QFrame.Raised)
@@ -271,8 +271,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setContentsMargins(0, 30, 0, 0)
         self.frame_16 = QFrame(self.page_low)
         self.frame_16.setObjectName(u"frame_16")
-        self.frame_16.setMinimumSize(QSize(331, 151))
-        self.frame_16.setMaximumSize(QSize(331, 151))
+        self.frame_16.setMinimumSize(QSize(431, 181))
+        self.frame_16.setMaximumSize(QSize(431, 200))
         self.frame_16.setStyleSheet(u"background-color: rgb(255, 255, 255, 0)")
         self.frame_16.setFrameShape(QFrame.StyledPanel)
         self.frame_16.setFrameShadow(QFrame.Raised)
@@ -393,8 +393,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.setContentsMargins(0, 30, 0, 0)
         self.frame_19 = QFrame(self.page_nearlycharged)
         self.frame_19.setObjectName(u"frame_19")
-        self.frame_19.setMinimumSize(QSize(331, 151))
-        self.frame_19.setMaximumSize(QSize(331, 151))
+        self.frame_19.setMinimumSize(QSize(431, 181))
+        self.frame_19.setMaximumSize(QSize(431, 200))
         self.frame_19.setStyleSheet(u"background-color: rgb(255, 255, 255, 0)")
         self.frame_19.setFrameShape(QFrame.StyledPanel)
         self.frame_19.setFrameShadow(QFrame.Raised)
@@ -515,8 +515,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_14.setContentsMargins(0, 30, 0, 0)
         self.frame_12 = QFrame(self.page_fullycharged)
         self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMinimumSize(QSize(331, 151))
-        self.frame_12.setMaximumSize(QSize(331, 151))
+        self.frame_12.setMinimumSize(QSize(431, 181))
+        self.frame_12.setMaximumSize(QSize(431, 200))
         self.frame_12.setStyleSheet(u"background-color: rgb(255, 255, 255, 0)")
         self.frame_12.setFrameShape(QFrame.StyledPanel)
         self.frame_12.setFrameShadow(QFrame.Raised)
@@ -692,8 +692,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.previous_two = QPushButton(self.frame_7)
         self.previous_two.setObjectName(u"previous_two")
-        self.previous_two.setMinimumSize(QSize(91, 61))
-        self.previous_two.setMaximumSize(QSize(91, 61))
+        self.previous_two.setMinimumSize(QSize(111, 61))
+        self.previous_two.setMaximumSize(QSize(111, 61))
         self.previous_two.setStyleSheet(u"QPushButton{\n"
 "	color: rgb(255, 255, 255, 255);\n"
 "	background-color: rgba(255, 255, 255, 0);\n"
@@ -755,8 +755,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.previous_three = QPushButton(self.frame_8)
         self.previous_three.setObjectName(u"previous_three")
-        self.previous_three.setMinimumSize(QSize(91, 61))
-        self.previous_three.setMaximumSize(QSize(91, 61))
+        self.previous_three.setMinimumSize(QSize(111, 61))
+        self.previous_three.setMaximumSize(QSize(111, 61))
         self.previous_three.setStyleSheet(u"QPushButton{\n"
 "	color: rgb(255, 255, 255, 255);\n"
 "	background-color: rgba(255, 255, 255, 0);\n"
@@ -790,8 +790,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.config.setCurrentIndex(0)
-        self.navbar.setCurrentIndex(1)
+        self.config.setCurrentIndex(3)
+        self.navbar.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
